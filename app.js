@@ -10,6 +10,8 @@ const LocalStrategy = require('passport-local').Strategy;
 
 const app = express();
 
+app.use('/', express.static(path.join(__dirname,'public')));
+
 // passport config
 passport.use(new LocalStrategy(
     function(username, password, done) {
@@ -33,8 +35,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get('/', (req,res) => {
-    res.send('todos on the way');
+app.get('/', (req, res) => {
+    res.render('index.html');
 });
+
+app.post('/login',
+  passport.authenticate('local', { successRedirect: '/',
+                                   failureRedirect: '/login',
+                                   failureFlash: true })
+);
 
 app.listen(3000);
