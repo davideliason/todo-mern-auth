@@ -38,9 +38,12 @@ app.use(passport.session());
 app.get('/', (req, res) => {
     res.render('index.html');
 });
+app.get('/welcome', (req,res) => {
+    res.send('welcome');
+});
 
 app.post('/login',
-  passport.authenticate('local', { successRedirect: '/',
+  passport.authenticate('local', { successRedirect: '/welcome',
                                    failureRedirect: '/login',
                                    failureFlash: true })
 );
