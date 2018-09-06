@@ -1,0 +1,31 @@
+{
+  "name": "todo-mern-auth",
+  "version": "0.0.1",
+  "description": "MERN app with CRUD functionality and auth",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davideliason/todo-mern-auth.git"
+  },
+  "keywords": [
+    "MERN"
+  ],
+  "author": "David Eliason",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/davideliason/todo-mern-auth/issues"
+  },
+  "homepage": "https://github.com/davideliason/todo-mern-auth#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "mongoose": "^5.2.13",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0"
+  }
+}

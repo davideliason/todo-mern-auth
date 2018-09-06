@@ -1,0 +1,6 @@
+# Passport-related modules
+
+- cookie-parser is used for cookies related to sessions for auth user
+- passport is the auth module
+- express-session is used for creating persisten sessioin for user, typical
+- passport-local is passport strategy for standard username and password
