@@ -4,3 +4,7 @@
 - passport is the auth module
 - express-session is used for creating persisten sessioin for user, typical
 - passport-local is passport strategy for standard username and password
+
+# Other modules
+- multer is used as file storing middleware via multipart/form-data enctypes
+- body-parser is used with req.body for form data

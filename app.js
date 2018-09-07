@@ -63,14 +63,12 @@ const multerConfig = {
             next();
           }
 
-        // only permit image mimetypes
         const image = file.mimetype.startsWith('image/');
         if(image){
           console.log('photo uploaded');
           next(null, true);
         }else{
           console.log("file not supported")
-          //TODO:  A better message response to user on failure.
           return next();
         }
     }
@@ -91,6 +89,9 @@ app.get('/', (req, res) => {
 // );
 app.post('/upload', multer(multerConfig).single('photo'),function(req, res){
     res.send("upload complete");
+    console.log("title was" + req.body.title)
+    // add function to save that photo to cloud
+    // upon doing that, get photo url and save that info along with user info to mongodb
 }
 
 );
