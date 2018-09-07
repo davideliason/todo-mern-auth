@@ -89,7 +89,11 @@ app.get('/', (req, res) => {
 //                                    failureRedirect: '/login',
 //                                    failureFlash: true })
 // );
+app.post('/upload', multer(multerConfig).single('photo'),function(req, res){
+    res.send("upload complete");
+}
 
+);
 app.listen(port, () => {
     console.log(`Server listening on port ${port}`);
 });
