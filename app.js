@@ -37,6 +37,7 @@ app.use('/', express.static(path.join(__dirname,'public')));
 // app.use(passport.initialize());
 // app.use(passport.session());
 
+// dest/storage & fileFilter are 2 of 4 options that can be passed to Multer
 const multerConfig = {
 
     //specify diskStorage (another option is memory)
@@ -50,22 +51,24 @@ const multerConfig = {
       //specify the filename to be unique
       filename: function(req, file, next){
         console.log(file);
-        //get the file mimetype ie 'image/jpeg' split and prefer the second value ie'jpeg'
+        // mimetype is a string with / separating text and png/jpeg, so grab second
         const ext = file.mimetype.split('/')[1];
-        //set the file fieldname to a unique name containing the original name, current datetime and the extension.
-        next(null, file.fieldname + '-' + Date.now() + '.'+ext);
+        //set the name with todays date to make it unique
+        next(null, file.fieldname + '-' + Date.now() + '.'+ ext);
       }
     }),
 
     // filter out and prevent non-image files.
     fileFilter: function(req, file, next){
+        // if no file is pressent then skip
           if(!file){
             next();
           }
-
+// if file mimentype start with image then okay (ex: mimetype image/png)
         const image = file.mimetype.startsWith('image/');
         if(image){
-          console.log('photo uploaded');
+          console.log('image photo uploaded');
+          // call callback (next) with boolean if file is accepted
           next(null, true);
         }else{
           console.log("file not supported")
@@ -88,8 +91,10 @@ app.get('/', (req, res) => {
 //                                    failureFlash: true })
 // );
 app.post('/upload', multer(multerConfig).single('photo'),function(req, res){
-    res.send("upload complete");
-    console.log("title was" + req.body.title)
+    // res.send("upload complete");
+    res.redirect('index.html');
+
+    console.log("title was" + req.body.title + " file mimetype" + req.file.mimetype);
     // add function to save that photo to cloud
     // upon doing that, get photo url and save that info along with user info to mongodb
 }
