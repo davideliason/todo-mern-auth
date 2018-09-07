@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const port = process.env.PORT || 3000;
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
@@ -10,30 +11,32 @@ const LocalStrategy = require('passport-local').Strategy;
 
 const app = express();
 
+app.use(require('body-parser').urlencoded({ extended: true }));
+
 app.use('/', express.static(path.join(__dirname,'public')));
 
 // passport config
-passport.use(new LocalStrategy(
-    function(username, password, done) {
-      User.findOne({ username: username }, function(err, user) {
-        if (err) { return done(err); }
-        if (!user) {
-          return done(null, false, { message: 'Incorrect username.' });
-        }
-        if (!user.validPassword(password)) {
-          return done(null, false, { message: 'Incorrect password.' });
-        }
-        return done(null, user);
-      });
-    }
-  ));
+// passport.use(new LocalStrategy(
+//     function(username, password, done) {
+//       User.findOne({ username: username }, function(err, user) {
+//         if (err) { return done(err); }
+//         if (!user) {
+//           return done(null, false, { message: 'Incorrect username.' });
+//         }
+//         if (!user.validPassword(password)) {
+//           return done(null, false, { message: 'Incorrect password.' });
+//         }
+//         return done(null, user);
+//       });
+//     }
+//   ));
 
 // middleware
 app.use(express.static("public"));
 app.use(session({ secret: "coffee" }));
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 app.get('/', (req, res) => {
     res.render('index.html');
@@ -42,10 +45,10 @@ app.get('/welcome', (req,res) => {
     res.send('welcome');
 });
 
-app.post('/login',
-  passport.authenticate('local', { successRedirect: '/welcome',
-                                   failureRedirect: '/login',
-                                   failureFlash: true })
-);
+// app.post('/login',
+//   passport.authenticate('local', { successRedirect: '/welcome',
+//                                    failureRedirect: '/login',
+//                                    failureFlash: true })
+// );
 
-app.listen(3000);
+app.listen(port);
