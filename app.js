@@ -1,18 +1,19 @@
+// run packages
 const express = require('express');
 const path = require('path');
-const port = process.env.PORT || 3000;
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const passport = require('passport');
 const session = require('express-session');
 const LocalStrategy = require('passport-local').Strategy;
+const multer = require('multer');
 
-
+// setup
 const app = express();
-
-app.use(require('body-parser').urlencoded({ extended: true }));
-
+const port = process.env.PORT || 3000;
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use('/', express.static(path.join(__dirname,'public')));
 
 // passport config
@@ -31,13 +32,11 @@ app.use('/', express.static(path.join(__dirname,'public')));
 //     }
 //   ));
 
-// middleware
-app.use(express.static("public"));
-app.use(session({ secret: "coffee" }));
-app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(session({ secret: "coffee" }));
 // app.use(passport.initialize());
 // app.use(passport.session());
 
+// routes
 app.get('/', (req, res) => {
     res.render('index.html');
 });
