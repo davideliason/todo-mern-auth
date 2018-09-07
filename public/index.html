@@ -12,6 +12,23 @@
                 <h1>My Todos</h1>
                 <p>Personal Todo lists with image uploads</p>
             </div>
+
+            <div class="container">
+                    <div class="col-sm-12">
+                        <h2>Upload a photo</h2>
+              
+                         <!-- IMAGE UPLOAD FORM -->
+                        <form action="/upload" enctype="multipart/form-data" method="POST">
+                              <div>
+                                <label><input type="file" id="photo" name="photo" /></label>
+                                <div>
+                                  <input type="submit" name="Upload" value="Upload Photo"/>
+                                </div>
+                              </div>
+                        </form>
+                    </div>
+                </div>
+
         </div>
     </body>
 </html>
