@@ -94,7 +94,7 @@ app.post('/upload', multer(multerConfig).single('photo'),function(req, res){
     // res.send("upload complete");
     res.redirect('index.html');
 
-    console.log("title was" + req.body.title + " file mimetype" + req.file.mimetype);
+    console.log("comment was" + req.body.comment + " file mimetype" + req.file.mimetype);
     // add function to save that photo to cloud
     // upon doing that, get photo url and save that info along with user info to mongodb
 }
