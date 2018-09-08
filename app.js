@@ -6,9 +6,16 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const passport = require('passport');
 const session = require('express-session');
 const LocalStrategy = require('passport-local').Strategy;
+const mongo = require('mongodb');
+const MongoClient = require('mongodb').MongoClient;
+var dotenv = require('dotenv');
+dotenv.config();
+const url = process.env.DB_URI;
+const fs = require('fs');
+
+require('dotenv').config()
 
 // setup
 const app = express();
@@ -17,27 +24,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use('/', express.static(path.join(__dirname,'public')));
 
-// passport config
-// passport.use(new LocalStrategy(
-//     function(username, password, done) {
-//       User.findOne({ username: username }, function(err, user) {
-//         if (err) { return done(err); }
-//         if (!user) {
-//           return done(null, false, { message: 'Incorrect username.' });
-//         }
-//         if (!user.validPassword(password)) {
-//           return done(null, false, { message: 'Incorrect password.' });
-//         }
-//         return done(null, user);
-//       });
-//     }
-//   ));
-
-// app.use(session({ secret: "coffee" }));
-// app.use(passport.initialize());
-// app.use(passport.session());
-
-// dest/storage & fileFilter are 2 of 4 options that can be passed to Multer
 const multerConfig = {
 
     //specify diskStorage (another option is memory)
@@ -77,10 +63,36 @@ const multerConfig = {
     }
   };
 
-// routes
-app.get('/', (req, res) => {
-    res.render('index.html');
+// db
+
+MongoClient.connect(url, function(err, client) {
+  if (err) return console.log(err);
+  console.log("Database connected!");
+  db = client.db('mytodos');
+
+  app.get('/todos', (req,res) => {
+    db.collection('todos').find().toArray((err,todos)=>{
+      console.log("ok");
+      console.log(todos[0]);
+      // res.render('index.html');
+      
+      });
+  });
+
+  app.post('/upload', multer(multerConfig).single('photo'),function(req, res){
+    var photo-path = req.file.destination;
+    var photo-name = req.file.
+   
+    // res.send("upload complete");
+    res.redirect('index.html');
+
+    console.log("comment was" + req.body.comment + " file mimetype" + req.file.mimetype);
+    // add function to save that photo to cloud
+    // upon doing that, get photo url and save that info along with user info to mongodb
+    });
 });
+// routes
+
 // app.get('/welcome', (req,res) => {
 //     res.send('welcome');
 // });
@@ -90,16 +102,7 @@ app.get('/', (req, res) => {
 //                                    failureRedirect: '/login',
 //                                    failureFlash: true })
 // );
-app.post('/upload', multer(multerConfig).single('photo'),function(req, res){
-    // res.send("upload complete");
-    res.redirect('index.html');
 
-    console.log("comment was" + req.body.comment + " file mimetype" + req.file.mimetype);
-    // add function to save that photo to cloud
-    // upon doing that, get photo url and save that info along with user info to mongodb
-}
-
-);
 app.listen(port, () => {
     console.log(`Server listening on port ${port}`);
 });
