@@ -95,9 +95,10 @@ MongoClient.connect(url, function(err, client) {
       console.log("ok");
       console.log(todos[0]);
       // res.render('index.html');
+      res.send(todos);
       
       });
-    res.end("hello");
+    // res.end("hello");
   });
 
   app.post('/todo', (req,res) => {
