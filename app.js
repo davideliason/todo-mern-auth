@@ -100,6 +100,10 @@ MongoClient.connect(url, function(err, client) {
     res.end("hello");
   });
 
+  app.post('/todo', (req,res) => {
+    console.log("new todo posted");
+  });
+
   // app.post('/upload', multer(multerConfig).single('photo'),function(req, res){
 
   //   // res.send("upload complete");

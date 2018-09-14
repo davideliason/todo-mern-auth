@@ -16,10 +16,17 @@
 
             <div class="container">
                     <div class="col-sm-12">
-                        <h2>Upload a photo</h2>
+                        <!-- <h2>Upload a photo</h2> -->
+                        <h3>Enter Todo</h3>
+
+                        <form action="/todo" method="POST">
+                          <input type="text" placeholder="name" name="name">
+                          <input type="text" placeholder="action" name="action">
+                           <button type="submit">Submit</button>
+                        </form>
               
                          <!-- IMAGE UPLOAD FORM -->
-                        <form action="/upload" enctype="multipart/form-data" method="POST">
+                       <!--  <form action="/upload" enctype="multipart/form-data" method="POST">
                               <div>
                                 <label for="photo">Image upload</label>
                                 <input type="file" id="photo" name="photo" />
@@ -28,7 +35,9 @@
                                 <input type="submit" name="Upload" value="Upload Photo"/>
                                 </div>
                               </div>
-                        </form>
+                        </form> -->
+
+
                     </div>
                 </div>
 
