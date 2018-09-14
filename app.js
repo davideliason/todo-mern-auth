@@ -102,6 +102,7 @@ MongoClient.connect(url, function(err, client) {
 
   app.post('/todo', (req,res) => {
     console.log("new todo posted");
+    db.collection('alltodos').insert({"name" : req.body.name, "action" : req.body.action});
   });
 
   // app.post('/upload', multer(multerConfig).single('photo'),function(req, res){
