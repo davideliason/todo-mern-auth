@@ -6,6 +6,7 @@
        <meta name="viewport" content="width=device-width, initial-scale=1">
        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     </head>
+    
     <body>
         <div class="jumbotron">
             <div class="container">
@@ -20,10 +21,11 @@
                          <!-- IMAGE UPLOAD FORM -->
                         <form action="/upload" enctype="multipart/form-data" method="POST">
                               <div>
-                                <label><input type="file" id="photo" name="photo" /></label>
+                                <label for="photo">Image upload</label>
+                                <input type="file" id="photo" name="photo" />
                                 <div>
-                                  <input type="comment" name="comment" placeholder="add comment" />
-                                  <input type="submit" name="Upload" value="Upload Photo"/>
+                                <input type="comment" name="comment" placeholder="add comment" />
+                                <input type="submit" name="Upload" value="Upload Photo"/>
                                 </div>
                               </div>
                         </form>
