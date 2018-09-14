@@ -97,6 +97,7 @@ MongoClient.connect(url, function(err, client) {
       // res.render('index.html');
       
       });
+    res.end("hello");
   });
 
   // app.post('/upload', multer(multerConfig).single('photo'),function(req, res){
